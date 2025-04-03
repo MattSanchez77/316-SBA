@@ -7,8 +7,10 @@ const btnStart = document.createElement('button');
 output.append(btnStart);
 btnStart.textContent = 'Begin Game';
 
+document.body.prepend(output);
+
 const vals = {min:0,max:50}
-const game = {score:0, randomNum:numberMaker(vals.min,vals.max)};
+const game = {guess:0,score:0, randomNum:numberMaker(vals.min,vals.max)};
 myInput.setAttribute('type','number');
 myInput.style.display = 'none';
 btn.style.display = 'none';
@@ -16,13 +18,39 @@ btn.textContent = 'Guess';
 
 
 btnStart.addEventListener('click',starter);
+btn.addEventListener('click',guesser);
 messageOut('Click to Begin');
 
+function guesser(){
+  console.log(myInput.value);
+  const val = myInput.value;
+  game.guess++;
+  console.log(game.randomNum == val);
+  
+  if(game.randomNum == val ){
+    console.log('correct');
+    } else if (game.randomNum > val){
+      console.log('Too Low');
+      vals.min = val;
+    } else{
+      console.log('Too High');
+      vals.mix = val;
+    }
+    insetUp();
+
+}
+
+function insetUp(){
+  messageOut(`Guess a number between ${vals.min} to ${vals.max}`);
+  myInput.setAttribute('min',vals.min);
+  myInput.setAttribute('max',vals.max);
+}
 
 function starter(e){
   vals.min = numberMaker(0,1);
   vals.max = numberMaker(vals.min+10,vals.min+100);
   game.randomNum = numberMaker(vals.min,vals.max);
+  insetUp();
   myInput.style.display = 'block';
   btn.style.display = 'block';
   btnStart.style.display = 'none'
