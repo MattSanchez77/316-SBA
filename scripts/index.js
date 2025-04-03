@@ -65,6 +65,7 @@ function starter(e){
   vals.max = numberMaker(vals.min+10,vals.min+100);
   game.randomNum = numberMaker(vals.min,vals.max);
   insetUp();
+  game.guess = 0;
   myInput.style.display = 'block';
   btn.style.display = 'block';
   btnStart.style.display = 'none'
